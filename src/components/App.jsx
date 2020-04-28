@@ -9,11 +9,14 @@ function App() {
         <div>
             <Header />
             {notes.map(note => {
-                return <Note
-                    key={note.key}
-                    title={note.title}
-                    content={note.content}
-                />
+                let { key, title, content } = note;
+                return (
+                    <Note
+                        key={key}
+                        title={title}
+                        content={content}
+                    />
+                )
             })}
             <Footer />
         </div>
