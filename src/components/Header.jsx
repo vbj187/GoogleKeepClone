@@ -1,9 +1,10 @@
 import React from "react";
+import PlaylistAddCheckIcon from '@material-ui/icons/PlaylistAddCheck';
 
 function Header() {
     return (
         <header>
-            <h1>Keeper</h1>
+            <h1><PlaylistAddCheckIcon />Keeper</h1>
         </header>
     );
 }

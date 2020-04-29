@@ -1,11 +1,16 @@
 import React, { useState } from "react";
+import AddIcon from '@material-ui/icons/Add';
+import Fab from "@material-ui/core/Fab";
+import Zoom from '@material-ui/core/Zoom';
 
 function CreateArea(props) {
+
+    const [isExpanpanded, setExpanded] = useState(false);
 
     const [note, setNote] = useState({
         title: "",
         content: ""
-    })
+    });
 
     function handleChange(event) {
         const { name, value } = event.target;
@@ -14,36 +19,47 @@ function CreateArea(props) {
             return {
                 ...prevNote,
                 [name]: value
-            }
-        })
+            };
+        });
     }
 
     function submitNote(event) {
-        props.onAdd(note)
-
+        props.onAdd(note);
         setNote({
             title: "",
             content: ""
-        })
-
+        });
         event.preventDefault();
+    }
+
+    function expand() {
+        setExpanded(true);
     }
 
     return (
         <div>
-            <form>
-                <input
-                    name="title"
-                    onChange={handleChange}
-                    value={note.title}
-                    placeholder="Title" />
+            <form className="create-note">
+                {isExpanpanded && (
+                    <input
+                        name="title"
+                        onChange={handleChange}
+                        value={note.title}
+                        placeholder="Title"
+                    />
+                )}
                 <textarea
                     name="content"
+                    onClick={expand}
                     onChange={handleChange}
                     value={note.content}
                     placeholder="Take a note..."
-                    rows="3" />
-                <button onClick={submitNote}>Add</button>
+                    rows={isExpanpanded ? 3 : 1}
+                />
+                <Zoom in={isExpanpanded}>
+                    <Fab onClick={submitNote}>
+                        <AddIcon />
+                    </Fab>
+                </Zoom>
             </form>
         </div>
     );
